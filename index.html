@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Forecast Notifier (Mock)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f6fb;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 { color: #2b5db9; }
+    input, button {
+      padding: 8px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    #result {
+      background: white;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 6px;
+      display: inline-block;
+      min-width: 250px;
+      text-align: left;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>🌤️ Weather Forecast Notifier</h1>
+  <p>Enter a city to see mock weather data:</p>
+
+  <input id="city" placeholder="Enter city (e.g., London)" />
+  <button onclick="getWeather()">Get Weather</button>
+
+  <div id="result"></div>
+
+  <h3>Subscribe for Alerts (Mock)</h3>
+  <input id="email" placeholder="Your email" />
+  <button onclick="subscribe()">Subscribe</button>
+
+  <script>
+    const mockWeather = {
+      "London": {
+        current: "Cloudy, 14°C",
+        forecast: ["Thu: Rainy 13°C", "Fri: Sunny 17°C", "Sat: Windy 16°C"]
+      },
+      "Paris": {
+        current: "Sunny, 17°C",
+        forecast: ["Thu: Sunny 19°C", "Fri: Rainy 15°C", "Sat: Cloudy 14°C"]
+      },
+      "New York": {
+        current: "Rainy, 12°C",
+        forecast: ["Thu: Cloudy 13°C", "Fri: Rainy 12°C", "Sat: Sunny 16°C"]
+      }
+    };
+
+    function getWeather() {
+      const city = document.getElementById('city').value.trim();
+      const result = document.getElementById('result');
+      const data = mockWeather[city];
+      if (!data) {
+        result.innerHTML = `<p style="color:red;">City not found in mock data.</p>`;
+        return;
+      }
+      result.innerHTML = `
+        <h2>${city}</h2>
+        <p><b>Current:</b> ${data.current}</p>
+        <ul>${data.forecast.map(f => `<li>${f}</li>`).join('')}</ul>
+      `;
+    }
+
+    function subscribe() {
+      const email = document.getElementById('email').value.trim();
+      const city = document.getElementById('city').value.trim();
+      if (!email || !city) {
+        alert("Please enter both city and email!");
+        return;
+      }
+      alert(`✅ Subscribed ${email} for weather updates in ${city}! (mock only)`);
+    }
+  </script>
+</body>
+</html>
