@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast Notifier</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Weather Forecast Notifier</h1>
+            <p>Your simple and elegant weather dashboard</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <h2 id="city">Loading...</h2>
+                <div class="temp" id="temperature">--</div>
+                <div class="condition" id="condition">--</div>
+                <div class="details">
+                    <p>Humidity: <span id="humidity">--</span></p>
+                    <p>Wind: <span id="wind">--</span></p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Made with Java + Spark + HTML/CSS</p>
+        </footer>
+    </div>
+
+    <script>
+        // Fetch mock weather data from the Java backend
+        fetch('/api/weather')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('city').textContent = data.city;
+                document.getElementById('temperature').textContent = data.temperature;
+                document.getElementById('condition').textContent = data.condition;
+                document.getElementById('humidity').textContent = data.humidity;
+                document.getElementById('wind').textContent = data.wind;
+            })
+            .catch(err => {
+                document.getElementById('city').textContent = "Error loading data";
+                console.error(err);
+            });
+    </script>
+</body>
+</html>
